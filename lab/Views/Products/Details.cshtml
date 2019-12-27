@@ -1,0 +1,18 @@
+﻿@model lab.Models.Product
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-6">
+        <img src="@Model.Url" style="width:18rem;" alt="Scooter image" />
+    </div>
+    <div class="col-6">
+        <p>@Model.Title</p>
+        <p><b>@Model.Price</b></p>
+        <p>@Model.Description</p>
+    </div>
+
+</div>
+

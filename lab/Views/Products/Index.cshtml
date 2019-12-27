@@ -1,0 +1,94 @@
+﻿
+@model IEnumerable<lab.Models.Product>
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+@if (User.IsInRole("Administrator"))
+{
+    <table id="friendTable" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Friend Id</th>
+                <th>Friend Name</th>
+
+                <th>Alter</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var friend in Model)
+                {
+                    <tr>
+                        <td>@friend.Title</td>
+                        <td>@friend.Url</td>
+
+                        <td><input type="button" class="btn btn-warning" value="Edit" onclick="@("window.location.href='" + @Url.Action("Edit", "Products", new { id = friend.Id }) + "'");" /><br /><input type="button" class="btn btn-danger js-delete" value="Delete" btn-id="@friend.Id" /></td>
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td></td><td></td><td></td><td><button>Edit</button><br /><button>Delete</button></td></tr>
+
+            }
+        </tbody>
+    </table>
+    <input class="btn btn-primary" type="button" value="Create New" onclick="@("window.location.href='" + @Url.Action("Create", "Products") + "'");" />
+
+
+
+}
+else
+{
+    <div class="container">
+        <div class="row">
+
+            @foreach (var product in Model)
+            {
+                <div class="col-4">
+                    <div class="card" style="width: 18rem;" onclick="@("window.location.href='" + @Url.Action("Details", "Products", new { id = product.Id }) + "'");">
+                        <img class="card-img-top" style="width: 18rem;" src="@product.Url" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Title</h5>
+                            <p class="card-text">@product.Price</p>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            var table = $("#friendTable").DataTable({});
+
+
+            $("#friendTable").on("click", ".js-delete", function () {
+                var button = $(this);
+                if (confirm("YES?")) {
+                    $.ajax({
+                        url: "/products/delete/" + button.attr("btn-id"),
+                        success: function () {
+                            table.row(button.parents("tr")).remove().draw();
+
+                        }
+                    })
+                }
+            }
+            );
+
+        });
+    </script>
+}
