@@ -1,0 +1,32 @@
+﻿@model Project.Models.Product
+    @{
+        ViewBag.Title = "Details";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div class="row">
+        <div class="col-6">
+            <img src="@Model.Url" style="max-width:18rem;" alt="Scooter image" />
+        </div>
+        <div class="col-6">
+            <h2 style="color:#555;"><b>@Model.Title</b></h2>
+            <p style="font-size:20px;color:#eb5b34;"><b>@Model.Price $</b></p>
+            <p>@Model.Description</p>
+            <p class="tags"></p>
+        </div>
+
+    </div>
+
+@section scripts{
+    
+    <script>
+        $(document).ready(function () {
+            let arr = "@Model.tags".split(" ");
+            arr.forEach(element => {
+                $(".tags").append("<span class='tag badge badge-pill badge-light'>" + element + "</span>")
+            })
+        });
+    </script>
+    
+    
+    }

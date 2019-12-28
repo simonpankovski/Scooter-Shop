@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<head>
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style="overflow-x:hidden;">
+    <nav class="navbar navbar-expand-lg sticky-top" style="margin-bottom:0;background:transparent;border:none; text-transform: uppercase; font-weight:300;letter-spacing:2px;">
+        <div class="container">
+            @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01" style="font-size:1.2rem;">
+                <ul class="navbar-nav mr-auto">
+                    <li>@Html.ActionLink("Products", "Index", "Products")</li>
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+
+            </div>
+        </div>
+    </nav>
+
+    <video autoplay muted loop id="myVideo" style="overflow:hidden;">
+        <source src="~/Content/Boosted Rev_ The Tesla of Electric Scooters!.mp4" type="video/mp4">
+    </video>
+
+    <!-- Optional: some overlay text to describe the video -->
+    <div class="content1">
+        <h1 style="margin-bottom:90px;">Heading</h1>
+        
+        <!-- Use a button to pause/play the video with JavaScript -->
+        <div style="font-size: 2rem;">
+            <a class="button">Browse</a>
+            <a id="myBtn" class="button" onclick="myFunction()">Pause</a>
+        </div>
+    </div>
+
+    
+        @Scripts.Render("~/bundles/jquery")
+
+        @Scripts.Render("~/bundles/bootstrap")
+
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script>
+            // Get the video
+            var video = document.getElementById("myVideo");
+
+            // Get the button
+            var btn = document.getElementById("myBtn");
+
+            // Pause and play the video, and change the button text
+            function myFunction() {
+                if (video.paused) {
+                    video.play();
+                    btn.innerHTML = "Pause";
+                } else {
+                    video.pause();
+                    btn.innerHTML = "Play";
+                }
+            }
+        </script>
+    
+</body>
+

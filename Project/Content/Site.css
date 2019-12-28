@@ -1,0 +1,249 @@
+﻿body {
+    font-family: 'Quicksand', sans-serif;
+    margin-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.navbar{
+    margin-bottom:20px;
+}
+.navbar-right a{
+    color:white;
+    margin-right:10px;
+}
+.navbar-nav a{
+    color:white;
+}
+.on-hover {
+    height: 409px;
+    transition: transform 100ms ease-in;
+    /*-webkit-animation: rotation 2s infinite linear;*/
+}
+.on-hover:hover{
+    transform: scale(1.1);
+}
+
+#logoutForm{
+    margin-bottom:0;
+}
+.navbar a, .navbar-brand a {
+    margin-left: 30px;
+    color:white;
+   
+}
+
+    .navbar a:hover, .navbar-brand a:hover{
+        text-decoration:none;
+    }
+
+    .navbar, .navbar-brand {
+        font-family: 'Open Sans', sans-serif;
+    }
+/* Style the video: 100% width and height to cover the entire window */
+#myVideo {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background-color: #2e1a4e;
+    min-width: 100%;
+    min-height: 100%;
+    
+}
+.button{
+    border:2px solid white;
+    padding: 25px 50px;
+    margin:20px 20px;
+    background: transparent;
+    color:white;
+    
+    transition: 300ms all ease;
+}
+    .button:hover {
+        background-color: rgba(255,255,255,0.2);
+        color: #fff;
+    }
+    
+    /* Add some content at the bottom of the video/page */
+    .content1 {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        top: 0;
+        background: rgba(0, 0, 0, 0.5);
+        color: #f1f1f1;
+        width: 100%;
+        height: 100vh;
+        padding: 20px;
+    }
+
+/* Style the button used to pause/play the video */
+
+
+   
+
+.card{
+    max-width:100%;
+}
+.card img{
+    max-width:18rem;
+}
+.grey-font {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    color: #555;
+    font-size:2rem;
+}
+@media only screen and (max-width: 576px) {
+    .col-12 {
+        display: flex;
+        justify-content: center;
+    }
+    .card{
+        display:flex;
+        align-items:center;
+    }
+}
+.fa-check-circle:before {
+    color: #999999;
+}
+.default-pointer:hover{
+    cursor: default;
+}
+.pointer:hover{
+    cursor:pointer;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active, .ui-widget-header {
+    background: #eb5b34;
+    border: 1px solid #eb5b34;
+}
+    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{
+        
+
+        border-radius:50%;
+    }
+.ui-slider-horizontal{
+    height:.5em;
+
+}
+.ui-widget.ui-widget-content{
+    border:none;
+    background: #e5e5e5;
+}
+ui-widget-content {
+    border: none;
+    background: #555;
+}
+span.field-validation-error{
+    color:red!important;
+}
+.input-validation-error{
+    border: 2px solid red!important;
+}
+
+.hide-radio {
+
+    opacity: 0;
+   
+}
+.style-radio {
+    font-weight: bold;
+    color: #eb5b34;
+}
+.tag{
+    margin-left:5px;
+    
+}
+.badge {
+    padding: .7em .9em;
+    font-size: .7em;
+    background: #eb5b34;
+    color:white;
+}
+.openbtn,.closebtn{
+    display:none;
+}
+@media only screen and (max-width: 576px) {
+    .sidepanel {
+        height: 100%; /* Specify a height */
+        width: 0; /* 0 width - change this with JavaScript */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Stay on top */
+        top: 0;
+        left: 0;
+       
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 60px; /* Place content 60px from the top */
+        transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+    }
+
+        .sidepanel a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+            /* When you mouse over the navigation links, change their color */
+            .sidepanel a:hover {
+                color: #f1f1f1;
+            }
+
+        /* Position and style the close button (top right corner) */
+        .sidepanel .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+    .openbtn {
+        font-size: 20px;
+        cursor: pointer;
+        background-color: #111;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        display:block;
+    }
+
+        .openbtn:hover {
+            background-color: #444;
+        }
+}
+
+/*
+@-webkit-keyframes rotation {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(359deg);
+    }
+}
+    */

@@ -1,0 +1,47 @@
+﻿@model Project.ViewModels.ProductViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<h2>Add Friend</h2>
+@using (Html.BeginForm("EditProduct", "Products"))
+{
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Product.Title)
+        @Html.TextBoxFor(m => m.Product.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Product.Title)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Product.Url)
+        @Html.TextBoxFor(m => m.Product.Url, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Product.Url)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Product.Price)
+        @Html.TextBoxFor(m => m.Product.Price, new { @class = "form-control", type = "number" })
+        @Html.ValidationMessageFor(m => m.Product.Price)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Product.brandId)
+        @Html.DropDownListFor(m => m.Product.brandId, new SelectList(Model.Brands, "Id", "Name"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Product.brandId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Product.Description)
+        @Html.TextAreaFor(m => m.Product.Description, new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    @Html.HiddenFor(m => m.Product.Id)
+    <input type="button" class="btn btn-danger" value="Back" onclick="@("window.location.href='" + @Url.Action("Index", "Products") + "'");" />
+
+
+}
+
+

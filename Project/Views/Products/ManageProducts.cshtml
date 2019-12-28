@@ -1,0 +1,70 @@
+﻿
+@model IEnumerable<Project.Models.Product>
+@{
+    ViewBag.Title = "ManageProducts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<table id="friendTable" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Friend Id</th>
+            <th>Friend Name</th>
+            @if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+            {
+                <th>Alter</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Title</td>
+                    <td>@product.Url</td>
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+                    {
+                        <td><input type="button" class="btn btn-warning" value="Edit" onclick="@("window.location.href='" + @Url.Action("Edit", "Friend",new { id = product.Id }) + "'");" /><br /><input type="button" class="btn btn-danger js-delete" value="Delete" btn-id="@product.Id" /></td>
+                    }
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td></td><td></td><td></td><td><button>Edit</button><br /><button>Delete</button></td></tr>
+
+        }
+    </tbody>
+</table>
+<input class="btn btn-primary" type="button" value="Create New" onclick="@("window.location.href='" + @Url.Action("Create", "Friend") + "'");" />
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            var table = $("#friendTable").DataTable({});
+
+
+            $("#friendTable").on("click", ".js-delete", function () {
+                var button = $(this);
+                if (confirm("YES?")) {
+                    $.ajax({
+                        url: "/friend/delete/" + button.attr("btn-id"),
+                        success: function () {
+                            table.row(button.parents("tr")).remove().draw();
+
+                        }
+                    })
+                }
+            }
+            );
+
+        });
+    </script>
+}
+

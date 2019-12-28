@@ -1,0 +1,197 @@
+﻿
+@model Project.ViewModels.ProductsBrandsViewModel
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+@if (User.IsInRole("Administrator"))
+{
+    <table id="friendTable" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Friend Id</th>
+                <th>Friend Name</th>
+
+                <th>Alter</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var product in Model.Products)
+                {
+                    <tr>
+                        <td>@product.Title</td>
+                        <td>@product.Url</td>
+
+                        <td><input type="button" class="btn btn-warning" value="Edit" onclick="@("window.location.href='" + @Url.Action("Edit", "Products", new { id = product.Id }) + "'");" /><br /><input type="button" class="btn btn-danger js-delete" value="Delete" btn-id="@product.Id" /></td>
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td></td><td></td><td></td><td><button>Edit</button><br /><button>Delete</button></td></tr>
+
+            }
+        </tbody>
+    </table>
+    <input class="btn btn-primary" type="button" value="Create New" onclick="@("window.location.href='" + @Url.Action("Create", "Products") + "'");" />
+    @section scripts{
+
+
+
+
+
+        <script src="~/Scripts/script.js"></script>
+        <script>
+
+            $(document).ready(function () {
+
+
+                var table = $("#friendTable")
+                console.log(table.children("tbody"))
+
+                $("#friendTable").on("click", ".js-delete", function () {
+                    var button = $(this);
+                    console.log("clicked")
+                    if (confirm("YES?")) {
+                        button.parents("tr").remove();
+                       
+                        $.ajax({
+                            url: "/products/delete/" + button.attr("btn-id"),
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+
+                            }
+                        })
+                    }
+                }
+                );
+
+
+
+
+            });
+        </script>
+    }
+
+
+}
+else
+{
+    <div class="row">
+        <div class="col-3 ">
+            
+            <ul class="list-group list-group-flush sidepanel"  id="mySidepanel">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <li class="list-group-item grey-font">Price</li>
+                <li class="list-group-item">
+                    <p>
+                        <label for="amount">Price range:</label>
+                        <input type="text" id="amount" readonly style="border:0; color:#eb5b34; font-weight:bold;">
+                    </p>
+                    <div id="slider-range"></div>
+                </li>
+                <li class="list-group-item grey-font">Brand</li>
+                <li class="list-group-item">
+                    @foreach (var brand in Model.Brands)
+                    {
+                        <div class="radio-button pointer">
+                            <i class="far fa-check-circle hide-radio" style="color:#333"></i> <span style="margin-left:10px;font-size:15px;" id="@brand.Id">@brand.Name</span>
+                        </div>
+                    }
+                </li>
+                <li class="list-group-item grey-font">Gender</li>
+                <li class="list-group-item ">
+                    <div><i class="far fa-check-circle hide-radio" style="color:#333"></i><span style="margin-left:10px;font-size:15px;">Male</span></div>
+                    <div><i class="far fa-check-circle hide-radio" style="color:#333"></i><span style="margin-left:10px;font-size:15px;">Female</span></div>
+                </li>
+                <button class="btn btn-outline-dark " id="filter">Filter</button>
+            </ul>
+        </div>
+        <div class="col-9">
+            <button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>
+            <div class="row">
+
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col-12 col-sm-6 col-md-4    ">
+                        <div class="card" style=" border:none;" onclick="@("window.location.href='" + @Url.Action("Details", "Products", new { id = product.Id }) + "'");">
+                            <img class="card-img-top on-hover img-responsive" style="height:80%;" src="@product.Url" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">@product.Title</h5>
+                                <p class="card-text"><b>@product.Price $    </b></p>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    @section scripts{
+        <script src="~/Scripts/script.js"></script>
+        <script>
+            function openNav() {
+                document.getElementById("mySidepanel").style.width = "250px";
+            }
+
+            /* Set the width of the sidebar to 0 (hide it) */
+            function closeNav() {
+                document.getElementById("mySidepanel").style.width = "0";
+            }
+            var urlParams = new URLSearchParams(window.location.search);
+            let ids = urlParams.getAll('brandId');
+            if (ids.length > 0) {
+                let arr = ids[0].split(' ')
+                $.each(arr, function (i, item) {
+
+                    $("#" + item).addClass("style-radio")
+                    $("#" + item).prev().removeClass("hide-radio")
+                })
+            }
+            let min = max = 0
+            let tmp = []
+                ; $.each($("#amount").prop("value").split('-'), function (i, item) {
+                    tmp.push(item.replace(/[^0-9]/g, ''))
+                })
+            console.log(tmp)
+            min = tmp[0]
+            max = tmp[1]
+
+            $(".radio-button").on("click", function () {
+
+                $(this).children().first().toggleClass("hide-radio")
+                $(this).children().last().toggleClass("style-radio")
+
+            });
+
+
+            $("#filter").on("click", function () {
+                let arr = $(".style-radio")
+                let str = "";
+                let el = $.each(arr, function (i, item) {
+                    let id = $(item).attr("id")
+                    str += id + "+"
+                    $("#" + id).removeClass("style-radio")
+                    $("#" + id).prev().addClass("hide-radio")
+                })
+                let tmp = []
+                    ; $.each($("#amount").prop("value").split('-'), function (i, item) {
+                        tmp.push(item.replace(/[^0-9]/g, ''))
+                    })
+                console.log(tmp)
+                min = tmp[0]
+                max = tmp[1]
+                window.location = "http://localhost:62071/Products/Index?brandId=" + str.slice(0, str.length - 1) + "&min=" + min + "&max=" + max;
+            });
+        </script>
+    }
+}
+
