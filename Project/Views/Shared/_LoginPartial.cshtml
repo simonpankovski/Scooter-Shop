@@ -7,9 +7,21 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink( User.Identity.GetUserName() , "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <div class="dropdown">
+                <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @User.Identity.GetUserName()
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="color:black;">
+                    @Html.ActionLink("View Profile", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                    <p></p>
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                    
+                </div>
+            </div>
+           
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li><i class="fas fa-shopping-cart" style="color:#eb5b34; border-color:#eb5b34;font-size:25px;" onclick="window.location = 'http://localhost:62071/Cart/Index'" ></i></li>
+        
     </ul>
     }
 }
@@ -17,6 +29,7 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li class="button">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

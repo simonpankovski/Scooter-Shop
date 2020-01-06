@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Project.Models.Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+    
+        <table id="productTable" class="table table-bordered table-hover" style="margin-top:20px;">
+            <thead>
+                <tr>
+                    
+                    <th>Product</th>
+
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Alter</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>@product.Title</td>
+                            <td><input type="number" name="quantity" value="1" class="quantity" min="1" max="20"  onchange="calcTotal()"/></td>
+                            <td><b>@product.Price</b> $</td>
+                            <td><br /><input type="button" class="btn btn-danger js-delete" value="Remove" btn-id="@product.Id" /></td>
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td></td><td></td><td></td><td><button>Edit</button><br /><button>Delete</button></td></tr>
+
+                }
+            </tbody>
+        </table>
+            <span>Total: <span id="total">0</span></span>
+           <button class="btn btn-outline-primary" style="margin-left:90%;">Check out</button>
+}
+else
+{
+    <h2>No items in the cart</h2>
+}
+
+@section scripts{
+    <script>
+        let calcTotal = () => {
+            let sum = 0;
+            $.each($(".quantity"), (i, item) => {
+                let tmp = parseInt($(item).parent().next().children()[0].textContent) * parseInt(item.value)
+                sum += tmp;
+                
+            })
+            console.log(sum)
+            $("#total").text(sum + " $");
+        }
+        $(document).ready(function () {
+            $(".js-delete").on("click", () => {
+                console.log($(this))
+            })
+            let sum = 0;
+            $.each($(".quantity"), (i, item) => {
+                let tmp = parseInt($(item).parent().next().children()[0].textContent) * parseInt(item.value)
+                sum += tmp;
+
+            })
+            console.log(sum)
+            $("#total").text(sum + " $");
+
+            
+        });
+    </script>
+    }

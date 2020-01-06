@@ -3,7 +3,6 @@
         ViewBag.Title = "Details";
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
-
     <div class="row">
         <div class="col-6">
             <img src="@Model.Url" style="max-width:18rem;" alt="Scooter image" />
@@ -13,6 +12,7 @@
             <p style="font-size:20px;color:#eb5b34;"><b>@Model.Price $</b></p>
             <p>@Model.Description</p>
             <p class="tags"></p>
+            <button class="btn btn-outline-danger" onclick="addToCart()">Add to cart</button>
         </div>
 
     </div>
@@ -20,6 +20,14 @@
 @section scripts{
     
     <script>
+        let addToCart = () => {
+            fetch("http://localhost:62071/Cart/Add?id="+@Model.Id, {
+                method: 'post',
+                body: { 'id':@Model.Id}
+            }).then(res => console.log(res))
+               
+           
+        }
         $(document).ready(function () {
             let arr = "@Model.tags".split(" ");
             arr.forEach(element => {

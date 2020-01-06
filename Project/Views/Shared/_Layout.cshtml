@@ -14,14 +14,14 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top" style="margin-bottom:0;background:#201f1f;border:none; text-transform: uppercase; font-weight:300;letter-spacing:2px;">
         <div class="container">
             @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarColor01">
+            <div class="collapse navbar-collapse" id="navbarColor01" style="font-size:1.2rem;">
                 <ul class="navbar-nav mr-auto">
                     <li>@Html.ActionLink("Products", "Index", "Products")</li>
 
@@ -41,7 +41,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    
+
     @Scripts.Render("~/bundles/bootstrap")
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

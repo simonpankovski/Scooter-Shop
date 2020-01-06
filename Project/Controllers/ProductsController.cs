@@ -93,10 +93,10 @@ namespace Project.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Products");
         }
-
-        public ActionResult Details(int id)
+        
+            public ActionResult Details(int id)
         {
-
+           
             Product product = _context.Products.Find(id);
 
             return View(product);
